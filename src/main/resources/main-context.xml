@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="manager" class="by.it_academy.jd2.MJD29522.dao.orm.Manager"  />
+
+    <bean id="singerDaoHibernate" class="by.it_academy.jd2.MJD29522.dao.orm.SingerDaoHibernate"  >
+        <constructor-arg index="0" ref="manager" />
+    </bean >
+
+    <bean id="genreDaoHibernate" class="by.it_academy.jd2.MJD29522.dao.orm.GenreDaoHibernate"  >
+        <constructor-arg index="0" ref="manager" />
+    </bean >
+
+    <bean id="voteDaoHibernate" class="by.it_academy.jd2.MJD29522.dao.orm.VoteDaoHibernate"  >
+        <constructor-arg index="0" ref="manager" />
+    </bean >
+
+    <bean id="singerService" class="by.it_academy.jd2.MJD29522.service.SingerService"  >
+         <constructor-arg index="0" ref="singerDaoHibernate" />
+    </bean >
+
+    <bean id="genreService" class="by.it_academy.jd2.MJD29522.service.GenreService"  >
+        <constructor-arg index="0" ref="genreDaoHibernate" />
+    </bean >
+
+    <bean id="voteService" class="by.it_academy.jd2.MJD29522.service.VoteService"  >
+        <constructor-arg index="0" ref="voteDaoHibernate" />
+        <constructor-arg index="1" ref="singerService" />
+        <constructor-arg index="2" ref="genreService" />
+    </bean >
+
+    <bean id="statisticService" class="by.it_academy.jd2.MJD29522.service.StatisticService"  >
+        <constructor-arg index="0" ref="singerService" />
+        <constructor-arg index="1" ref="genreService" />
+        <constructor-arg index="2" ref="voteService" />
+    </bean >
+
+</beans>
