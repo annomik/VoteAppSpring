@@ -34,10 +34,11 @@ public class SingerController  {
         service.delete(singerId);
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/{id}/version/{version}", method = RequestMethod.PUT)
     public void update(@PathVariable("id") long singerId,
+                      @PathVariable("version") long version,
                       @RequestBody SingerDTO singerDTO)  {
-        service.update(singerId, singerDTO);
+        service.update(singerId, singerDTO, version);
     }
 
 

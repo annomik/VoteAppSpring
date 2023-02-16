@@ -89,13 +89,13 @@ public class SingerDaoHibernate implements ISingerDao {
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
-            SingerEntity singerToUpdate = entityManager.find(SingerEntity.class, singerEntity.getId());
-            if(singerToUpdate != null){
+            SingerEntity singerFromBD = entityManager.find(SingerEntity.class, singerEntity.getId());
+            if(singerFromBD != null  && singerFromBD.getVersion().equals(singerEntity.getVersion() )){
                 entityManager.merge(singerEntity);
             }
             entityManager.getTransaction().commit();
         } catch (Exception e) {
-            if(entityManager != null){
+            if(entityManager != null && entityManager.getTransaction().isActive()){
                 entityManager.getTransaction().rollback();
             }
             throw new RuntimeException("Ошибка в базе данных", e);

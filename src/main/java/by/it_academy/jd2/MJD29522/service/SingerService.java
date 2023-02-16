@@ -7,7 +7,6 @@ import by.it_academy.jd2.MJD29522.entity.SingerEntity;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class SingerService implements ISingerService {
 
@@ -22,7 +21,7 @@ public class SingerService implements ISingerService {
         List<SingerEntity> singerEntityList = singerDao.get();
         List<SingerWithId> singerWithIdList = new ArrayList<>();
         for (SingerEntity singerEntity : singerEntityList){
-            singerWithIdList.add(new SingerWithId(singerEntity.getId(), new SingerDTO( singerEntity.getName() )));
+            singerWithIdList.add(new SingerWithId(singerEntity));
         }
         return singerWithIdList;
     }
@@ -43,7 +42,7 @@ public class SingerService implements ISingerService {
     public SingerWithId getCard(long id) {
         if (singerDao.exist(id)) {
              SingerEntity singerEntity = singerDao.getCard(id);
-             SingerWithId singerWithId = new SingerWithId(singerEntity.getId(), new SingerDTO(singerEntity.getName()));
+             SingerWithId singerWithId = new SingerWithId(singerEntity);
              return singerWithId;
         } else {
             throw new IllegalArgumentException("Исполнителя с id " + id + " не нейдено!");
@@ -51,15 +50,19 @@ public class SingerService implements ISingerService {
     }
 
     @Override
-    public void update(long id, SingerDTO singerDTO) {
-        if (validate(singerDTO)) {
+    public void update(long id, SingerDTO singerDTO, long version) {
+        validate(singerDTO);
             if (singerDao.exist(id)) {
-                SingerEntity singerEntity = new SingerEntity(id, singerDTO.getName());
-                singerDao.update(singerEntity);
+                SingerEntity singerFromDB = singerDao.getCard(id);
+                if(singerFromDB.getVersion().equals(version) ) {
+                    SingerEntity singerWithNewName = new SingerEntity(id, singerDTO.getName(), version);
+                    singerDao.update(singerWithNewName);
+                } else{
+                    throw new IllegalArgumentException("Версии для исполнителя id " + id + " не совпадают!");
+                }
             } else {
                 throw new IllegalArgumentException("Исполнителя с id " + id + " для обновления не нейдено!");
             }
-        }
     }
 
     @Override

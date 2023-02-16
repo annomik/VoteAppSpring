@@ -1,25 +1,29 @@
 package by.it_academy.jd2.MJD29522.dto;
 
+import by.it_academy.jd2.MJD29522.entity.SingerEntity;
+
 import java.util.Objects;
 
 public class SingerWithId {
 
     private long id;
-    private SingerDTO singerDTO;
+    private String name;
+    private long version;
 
     public SingerWithId() { }
 
-    public SingerWithId(long id, SingerDTO singerDTO) {
-        this.id = id;
-        this.singerDTO = singerDTO;
+    public SingerWithId(SingerEntity singerEntity) {
+        this.id = singerEntity.getId();
+        this.name = singerEntity.getName();
+        this.version = singerEntity.getVersion();
     }
 
-    public SingerDTO getSingerDTO() {
-        return singerDTO;
+    public long getVersion() {
+        return version;
     }
 
-    public void setSingerDTO(GenreDTO genreDTO) {
-        this.singerDTO = singerDTO;
+    public String getName() {
+        return name;
     }
 
     public long getId() {
@@ -30,7 +34,8 @@ public class SingerWithId {
     public String toString() {
         return "SingerWithId{" +
                 "id=" + id +
-                ", singerDTO=" + singerDTO +
+                ", name='" + name + '\'' +
+                ", version=" + version +
                 '}';
     }
 
@@ -39,11 +44,11 @@ public class SingerWithId {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SingerWithId that = (SingerWithId) o;
-        return id == that.id && Objects.equals(singerDTO, that.singerDTO);
+        return id == that.id && version == that.version && Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, singerDTO);
+        return Objects.hash(id, name, version);
     }
 }

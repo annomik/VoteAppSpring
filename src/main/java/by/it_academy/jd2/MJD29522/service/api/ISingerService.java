@@ -2,10 +2,7 @@ package by.it_academy.jd2.MJD29522.service.api;
 
 import by.it_academy.jd2.MJD29522.dto.SingerDTO;
 import by.it_academy.jd2.MJD29522.dto.SingerWithId;
-import by.it_academy.jd2.MJD29522.entity.SingerEntity;
-
 import java.util.List;
-import java.util.Map;
 
 public interface ISingerService {
 
@@ -15,7 +12,7 @@ public interface ISingerService {
 
    SingerWithId getCard(long id);
 
-   void update(long id, SingerDTO singerDTO);
+   void update(long id, SingerDTO singerDTO, long version);
 
    boolean delete(long id);
 

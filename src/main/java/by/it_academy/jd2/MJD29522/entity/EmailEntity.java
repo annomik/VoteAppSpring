@@ -1,7 +1,6 @@
 package by.it_academy.jd2.MJD29522.entity;
 
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 
 @Entity

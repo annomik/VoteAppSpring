@@ -6,8 +6,6 @@ import by.it_academy.jd2.MJD29522.entity.VoteEntity;
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import by.it_academy.jd2.MJD29522.service.api.*;
-
-import java.time.ZoneId;
 import java.util.*;
 
 public class VoteService implements IVoteService {
@@ -33,8 +31,6 @@ public class VoteService implements IVoteService {
                 voteDTO.getMessage(),
                 voteDTO.getEmail(),
                 voteDTO.getLocalDate()
-//                java.util.Date
-//                        .from(voteDTO.getLocalDate().atZone(ZoneId.systemDefault()).toInstant())
                         );
         this.dao.save(voteToSave);
     }

@@ -16,16 +16,25 @@ public class GenreEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "version")
+    @Version
+    private Long version;
+
     public GenreEntity() {
     }
 
-    public GenreEntity(Long id, String name) {
+    public GenreEntity(Long id, String name, Long version) {
         this.id = id;
         this.name = name;
+        this.version = version;
     }
 
     public GenreEntity(String name) {
         this.name = name;
+    }
+
+    public Long getVersion() {
+        return version;
     }
 
     public Long getId() {
@@ -40,24 +49,5 @@ public class GenreEntity {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "GenreEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GenreEntity that = (GenreEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
-    }
 }

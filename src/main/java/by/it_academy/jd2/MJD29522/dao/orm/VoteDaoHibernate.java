@@ -63,34 +63,6 @@ public class VoteDaoHibernate implements IVoteDao {
         }
     }
 
-//    @Override
-//    public void save(VoteEntity voteEntity) {
-//        List <GenreEntity> genres = voteToGenreEntityList(vote);
-//        SingerEntity singer = voteToSingerEntity(vote);
-//        EntityManager entityManager = null;
-//        VoteEntity voteEntity = new VoteEntity(vote.getMessage(),
-//               vote.getEmail(),
-//                java.util.Date
-//                     .from(vote.getLocalDate().atZone(ZoneId.systemDefault()).toInstant()),
-//               singer,
-//                genres);
-//        try {
-//            entityManager = manager.getEntityManager();
-//            entityManager.getTransaction().begin();
-//            entityManager.persist(voteEntity);
-//            entityManager.getTransaction().commit();
-//        } catch (Exception e) {
-//            if(entityManager != null){
-//                entityManager.getTransaction().rollback();
-//            }
-//            throw new RuntimeException("Ошибка в базе данных", e);
-//        }finally {
-//            if(entityManager != null){
-//                entityManager.close();
-//            }
-//        }
-//    }
-
     @Override
     public List <GenreEntity> voteToGenreEntityList (VoteDTO voteDTO){
         List <GenreEntity> genresEntityList = new ArrayList<>();

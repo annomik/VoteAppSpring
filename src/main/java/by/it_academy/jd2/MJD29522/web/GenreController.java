@@ -38,10 +38,11 @@ public class GenreController {
     }
 
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/{id}/version/{version}", method = RequestMethod.PUT)
     public void update(@PathVariable("id") long genreId,
+                      @PathVariable("version") long version,
                       @RequestBody GenreDTO genreDTO ){
-        service.update(genreId, genreDTO);
+        service.update(genreId, genreDTO, version);
     }
 }
 

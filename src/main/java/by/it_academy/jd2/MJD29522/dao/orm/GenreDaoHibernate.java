@@ -89,13 +89,13 @@ public class GenreDaoHibernate implements IGenreDao {
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
-            GenreEntity genreToUpdate = entityManager.find(GenreEntity.class, genreEntity.getId());
-            if(genreToUpdate != null){
+            GenreEntity genreFromDB = entityManager.find(GenreEntity.class, genreEntity.getId());
+            if(genreFromDB != null && genreFromDB.getVersion().equals(genreEntity.getVersion())){
                 entityManager.merge(genreEntity);
             }
             entityManager.getTransaction().commit();
         } catch (Exception e) {
-            if(entityManager != null){
+            if(entityManager != null && entityManager.getTransaction().isActive()){
                 entityManager.getTransaction().rollback();
             }
             throw new RuntimeException("Ошибка в базе данных", e);

@@ -16,15 +16,28 @@ public class SingerEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "version")
+    @Version
+    private Long version;
+
     public SingerEntity() {
     }
     public SingerEntity(String name) {
         this.name = name;
     }
 
-    public SingerEntity(Long id, String name) {
+    public SingerEntity(Long id, String name, Long version) {
         this.id = id;
         this.name = name;
+        this.version = version;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     public Long getId() {
@@ -44,6 +57,7 @@ public class SingerEntity {
         return "SingerEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", version=" + version +
                 '}';
     }
 
@@ -52,11 +66,11 @@ public class SingerEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SingerEntity that = (SingerEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(version, that.version);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, name, version);
     }
 }

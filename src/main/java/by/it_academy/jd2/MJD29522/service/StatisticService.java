@@ -32,7 +32,7 @@ public class  StatisticService implements IStatisticService {
         // в этом цикле происходит заполнение именами. т.к. я заполняю ид и имена,
         // то сравнивать проще по ид, в след методах все однотипно
         for(GenreWithId  genreWithId : genres){
-            statisticGenre.add(new StatisticDTOGenre(genreWithId.getId(),genreWithId.getGenreDTO().getName() ));
+            statisticGenre.add(new StatisticDTOGenre(genreWithId.getId(),genreWithId.getName() ));
         }
 
         for(VoteEntity vote : votes){
@@ -62,7 +62,7 @@ public class  StatisticService implements IStatisticService {
         List<VoteEntity> votes = voteService.getVote();
         List<StatisticDTOArtist> statisticSinger = new ArrayList<>();
         for(SingerWithId singerWithId: singers){     // в этом цикле происходит заполнение именами
-            statisticSinger.add(new StatisticDTOArtist(singerWithId.getId(),singerWithId.getSingerDTO().getName() ));
+            statisticSinger.add(new StatisticDTOArtist(singerWithId.getId(),singerWithId.getName() ));
         }
         for(VoteEntity vote : votes){
             boolean notAddingCount = true;
