@@ -53,10 +53,15 @@ public class GenreService implements IGenreService {
     @Override
     public void update(long id, GenreDTO genreDTO, long version) {
         validate(genreDTO);
-
             if (dao.exist(id)) {
-                GenreEntity genreEntity = new GenreEntity(id, genreDTO.getName(), version);
-                dao.update(genreEntity);
+                GenreEntity genreFromDB = dao.getCard(id);
+                   if(genreFromDB.getVersion().equals(version)) {
+                       GenreEntity genreWithNewName = new GenreEntity(id, genreDTO.getName(), version);
+                       dao.update(genreWithNewName);
+                }  else {
+                throw new IllegalArgumentException("Версии для жанра " + genreDTO.getName() + " не совпадают!");
+            }
+
             } else {
                 throw new IllegalArgumentException("Жанра с id " + id + " для обновления не нейдено!");
             }
