@@ -4,8 +4,8 @@ import by.it_academy.jd2.MJD29522.dto.*;
 import java.util.List;
 
 public interface IStatisticService {
-     List<StatisticDTOArtistOrGenre> getResultSinger();
-     List<StatisticDTOArtistOrGenre> getResultGenre();
+     List<StatisticDTOArtist> getResultSinger();
+     List<StatisticDTOGenre> getResultGenre();
      List<StatisticDTOMessage> getResultMessage();
      StatisticDTO getResults();
 }

@@ -3,10 +3,8 @@ package by.it_academy.jd2.MJD29522.entity;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
+
 
 @Entity
 @Table(name = "app.votes")
@@ -79,10 +77,8 @@ public class VoteEntity {
         return email;
     }
 
-    public LocalDateTime getDate() {
-        return this.localDateTime.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
     }
 
     public SingerEntity getSinger() {

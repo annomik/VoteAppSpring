@@ -24,15 +24,15 @@ public class  StatisticService implements IStatisticService {
     }
 
     @Override
-    public List<StatisticDTOArtistOrGenre> getResultGenre() {
+    public List<StatisticDTOGenre> getResultGenre() {
         List<GenreWithId> genres = genreService.get();
         List<VoteEntity> votes = voteService.getVote();
-        List<StatisticDTOArtistOrGenre> statisticGenre = new ArrayList<>();
+        List<StatisticDTOGenre> statisticGenre = new ArrayList<>();
 
         // в этом цикле происходит заполнение именами. т.к. я заполняю ид и имена,
         // то сравнивать проще по ид, в след методах все однотипно
         for(GenreWithId  genreWithId : genres){
-            statisticGenre.add(new StatisticDTOArtistOrGenre(genreWithId.getId(),genreWithId.getGenreDTO().getName() ));
+            statisticGenre.add(new StatisticDTOGenre(genreWithId.getId(),genreWithId.getGenreDTO().getName() ));
         }
 
         for(VoteEntity vote : votes){
@@ -52,17 +52,17 @@ public class  StatisticService implements IStatisticService {
                 }
             }
         }
-        List<StatisticDTOArtistOrGenre> sortList = statisticGenre.stream().sorted(Comparator.comparing(StatisticDTOArtistOrGenre::getCount).reversed()).collect(Collectors.toList());
+        List<StatisticDTOGenre> sortList = statisticGenre.stream().sorted(Comparator.comparing(StatisticDTOGenre::getCount).reversed()).collect(Collectors.toList());
         return sortList;
     }
 
     @Override
-    public List<StatisticDTOArtistOrGenre> getResultSinger() {
+    public List<StatisticDTOArtist> getResultSinger() {
         List<SingerWithId> singers = singerService.get();
         List<VoteEntity> votes = voteService.getVote();
-        List<StatisticDTOArtistOrGenre> statisticSinger = new ArrayList<>();
+        List<StatisticDTOArtist> statisticSinger = new ArrayList<>();
         for(SingerWithId singerWithId: singers){     // в этом цикле происходит заполнение именами
-            statisticSinger.add(new StatisticDTOArtistOrGenre(singerWithId.getId(),singerWithId.getSingerDTO().getName() ));
+            statisticSinger.add(new StatisticDTOArtist(singerWithId.getId(),singerWithId.getSingerDTO().getName() ));
         }
         for(VoteEntity vote : votes){
             boolean notAddingCount = true;
@@ -77,7 +77,7 @@ public class  StatisticService implements IStatisticService {
                 throw new ArrayStoreException("Такого исполнителя не существует в жанрах");
             }
         }
-        List<StatisticDTOArtistOrGenre> sortList = statisticSinger.stream().sorted(Comparator.comparing(StatisticDTOArtistOrGenre::getCount).reversed()).collect(Collectors.toList());
+        List<StatisticDTOArtist> sortList = statisticSinger.stream().sorted(Comparator.comparing(StatisticDTOArtist::getCount).reversed()).collect(Collectors.toList());
         return sortList;
     }
 
@@ -86,7 +86,7 @@ public class  StatisticService implements IStatisticService {
         List<VoteEntity> votes = voteService.getVote();
         List<StatisticDTOMessage> messages = new ArrayList<>();
         for(VoteEntity voteEntity : votes){
-            messages.add(new StatisticDTOMessage(voteEntity.getDate(),voteEntity.getAbout()));
+            messages.add(new StatisticDTOMessage(voteEntity.getLocalDateTime(),voteEntity.getAbout()));
         }
         List<StatisticDTOMessage> sortList = messages.stream().sorted(Comparator.comparing(StatisticDTOMessage::getTime)).collect(Collectors.toList());
         return sortList;
@@ -94,7 +94,7 @@ public class  StatisticService implements IStatisticService {
 
     @Override
     public StatisticDTO getResults() {
-       StatisticDTO results = new StatisticDTO(getResultSinger(), getResultGenre(), getResultMessage());
+       StatisticDTO results = new StatisticDTO(getResultSinger(), getResultGenre() , getResultMessage()   );
         return results;
     }
 }

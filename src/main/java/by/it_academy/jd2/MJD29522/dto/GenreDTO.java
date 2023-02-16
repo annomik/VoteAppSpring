@@ -17,7 +17,6 @@ public class GenreDTO {
     }
 
     public void setName(String name) {
-
         this.name = name;
     }
 
